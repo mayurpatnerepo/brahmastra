@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Admin panel</title>
+<title>Brahmastra</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="{{ asset('css/backend_css/bootstrap.min.css') }}" />
@@ -19,7 +19,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="{{ asset('css/frontend_css/font-awesome.min.css') }}" rel="stylesheet">
 
-
+<link rel="shortcut icon" href="{{ asset('css/frontend_css/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href=" {{ asset('css/frontend_css/favicon-32x32.png') }}">
 
 </head>
 <body>

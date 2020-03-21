@@ -39,7 +39,9 @@
         <li class="bg_lr"> <a href="{{ url('admin/view-users') }}"> <i class="icon-inbox"></i><span class="label label-success">101</span> Users </a> </li>
         @endif
 
-        
+        @if(Session::get('adminDetails')['users_access']==1)
+        <li class="bg_lr"> <a href="{{ url('admin/view-enquiries') }}"> <i class="icon-inbox"></i><span class="label label-success">101</span>Enquiries</a> </li>
+        @endif
         <!-- <li class="bg_lo"> <a href="tables.html"> <i class="icon-th"></i> Tables</a> </li>
         <li class="bg_ls"> <a href="grid.html"> <i class="icon-fullscreen"></i> Full width</a> </li>
         <li class="bg_lo span3"> <a href="form-common.html"> <i class="icon-th-list"></i> Forms</a> </li>
