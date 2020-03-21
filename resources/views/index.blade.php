@@ -115,16 +115,12 @@ $mainCategories =  Controller::mainCategories();
 <section>
 	<div class="container">
 		<div class="row">
-
-
-	  <div class="row" id="slider-text">
+        <div class="row" id="slider-text">
           <div class="col-md-6" >
-<<<<<<< .mine<<<<<<< .mine             <h2>Deals of the Day</h2>
-=======             <h2>Deals of the Day2222</h2>
->>>>>>> .theirs          </div>
-=======             <h2>Deals of the Day</h2>
-          </div>
->>>>>>> .theirs      </div>
+           <h2>Deals of the Day</h2>
+        </div>
+        </div>
+     </div>
 		 <div class="col-xs-12 col-sm-12 col-md-12">
                   <?php     $categories = Category::where(['parent_id' => 1])->paginate(4);?>
 
