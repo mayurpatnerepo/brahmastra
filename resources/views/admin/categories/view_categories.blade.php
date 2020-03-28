@@ -36,6 +36,7 @@
                   <th>Category URL</th>
                   <th>Image</th>
                   <th>Image1</th>
+                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -54,6 +55,13 @@
                    <td class="center">
                     @if(!empty($category->image1))
                     <img src="{{ asset('/images/backend_images/product/small/'.$category->image1) }}" style="width:50px;">
+                    @endif
+                  </td>
+                    <td class="center">
+                    @if($category->status==1)
+                      <span style="color:green">Active</span>
+                    @else
+                      <span style="color:red">Inactive</span>
                     @endif
                   </td>
                    <td class="center">

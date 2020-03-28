@@ -16,23 +16,24 @@
           </div>
           <div class="widget-content nopadding">
             <div id="app">
-              <input style="margin-top: 10px; margin-left: 5px;" type="text" v-model="search" placeholder="Searh Name">
-              <table class="table table-bordered">
+              <table class="table table-bordered data-table">
                 <thead>
                   <tr>
-                    <th style="text-align: left;">Name</th>
-                    <th style="text-align: left;">Email</th>
-                    <th style="text-align: left;">Subject</th>
-                    <th style="text-align: left;">Message</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Message</th>
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach($enquiries as $enquiry)
                   <tr v-for="enquiry in filteredEnquiries">
-                    <td>@{{enquiry.name}}</td>
-                    <td>@{{enquiry.email}}</td>
-                    <td>@{{enquiry.subject}}</td>
-                    <td>@{{enquiry.message}}</td>
+                    <td>{{ $enquiry->name}}</td>
+                    <td>{{ $enquiry->email}}</td>
+                    <td>{{ $enquiry->subject}}</td>
+                    <td>{{ $enquiry->message}}</td>
                   </tr>
+                  @endforeach
                 </tbody>
               </table>
 

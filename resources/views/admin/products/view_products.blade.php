@@ -1,6 +1,10 @@
 @extends('layouts.adminLayout.admin_design')
 @section('content')
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+
+
 <div id="content">
   <div id="content-header">
     <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Products</a> <a href="#" class="current">View Products</a> </div>
@@ -11,12 +15,11 @@
                     <strong>{!! session('flash_message_error') !!}</strong>
             </div>
         @endif   
-        @if(Session::has('flash_message_success'))
-            <div class="alert alert-success alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button> 
-                    <strong>{!! session('flash_message_success') !!}</strong>
-            </div>
-        @endif
+        <script>
+         @if (session('success'))
+           swal("{{ session('success') }}");
+         @endif
+</script>
   </div>
   <div style="margin-left:20px;">
     <a href="{{ url('/admin/export-products') }}" class="btn btn-primary btn-mini">Export</a>
@@ -42,6 +45,7 @@
                   <th>Price</th>
                   <th>Image</th>
                   <th>Feature Item</th>
+                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -61,6 +65,13 @@
                     @endif
                   </td>
                   <td class="center">@if($product->feature_item == 1) Yes @else No @endif</td>
+                  <td class="center">
+                    @if($product->status==1)
+                      <span style="color:green">Active</span>
+                    @else
+                      <span style="color:red">Inactive</span>
+                    @endif
+                  </td>
                   <td class="center">
                     <a href="#myModal{{ $product->id }}" data-toggle="modal" class="btn btn-success btn-mini">View</a> 
                     <a href="{{ url('/admin/edit-product/'.$product->id) }}" class="btn btn-primary btn-mini">Edit</a> 

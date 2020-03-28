@@ -1,17 +1,20 @@
 @extends('layouts.adminLayout.admin_design')
 @section('content')
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+
 <!--main-container-part-->
 <div id="content">
   <div id="content-header">
     <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Orders</a> </div>
     <h1>Order #{{ $orderDetails->id }}</h1>
-    @if(Session::has('flash_message_success'))
-        <div class="alert alert-success alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button> 
-                <strong>{!! session('flash_message_success') !!}</strong>
-        </div>
-    @endif
+   <script>
+           @if (session('success'))
+            swal("{{ session('success') }}");
+           @endif
+       </script>
   </div>
   <div class="container-fluid">
     <hr>
