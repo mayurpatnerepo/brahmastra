@@ -2,32 +2,34 @@
 <html lang="en">
     
 <head>
-        <title>E-commerce Admin</title><meta charset="UTF-8" />
+        <title>Brahmastra</title><meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="{{ asset('css/backend_css/bootstrap.min.css') }}" />
 		<link rel="stylesheet" href="{{ asset('css/backend_css/bootstrap-responsive.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/backend_css/matrix-login.css') }}" />
         <link href="{{ asset('fonts/backend_fonts/css/font-awesome.css') }}" rel="stylesheet" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+       
+       
 
     </head>
     <body>
         <div id="loginbox">    
-        @if(Session::has('flash_message_error')) 
-            <div class="alert alert-error alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button> 
-                    <strong>{!! session('flash_message_error') !!}</strong>
-            </div>
-        @endif   
+      <script>
+            @if (session('error'))
+              swal('Oh no…', 'Invalid Username or Password!', 'error')
+            @endif
+      </script>
 
-        @if(Session::has('flash_message_success')) 
-            <div class="alert alert-success alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button> 
-                    <strong>{!! session('flash_message_success') !!}</strong>
-            </div>
-        @endif       
+         <script>
+            @if (session('success'))
+              swal("Good job!", "Logged out successfully!", "success")
+            @endif
+      </script>    
             <form class="form-vertical" role="form" method="POST" action="{{ url('admin') }}">{{ csrf_field() }}
-				 <div class="control-group normal_text"> <h3>E-commerce Admin</h3></div>
+				 <div class="control-group normal_text"> <h3>Brahmastra Admin Panel</h3></div>
                 <div class="control-group">
                     <div class="controls">
                         <div class="main_input_box">
@@ -58,7 +60,7 @@
                
                 <div class="form-actions">
                     <span class="pull-left"><a href="#" class="flip-link btn btn-success" id="to-login">&laquo; Back to login</a></span>
-                    <span class="pull-right"><a class="btn btn-info"/>Reecover</a></span>
+                    <span class="pull-right"><a class="btn btn-info"/>Recover</a></span>
                 </div>
             </form>
         </div>
