@@ -88,6 +88,14 @@ $this->validate($request, [
                 $user->updated_at = date("Y-m-d H:i:s");
                 $user->save();
 
+                //otp send to email
+
+               /*$otp= $data['otp'];
+               $messageData = ['email'=>$data['email1'],'otp'=>$data['otp']];
+                Mail::send('emails.otp',$messageData,function($message) use($otp){
+                    $message->to($email)->subject('is your OTP');
+                });*/
+
                // Send Register Email
                 $email = $data['email1'];
                 $messageData = ['email'=>$data['email1'],'name'=>$data['name']];
