@@ -88,7 +88,7 @@ if (str == "") {
                 }
             }
         };
-        xmlhttp.open("GET"," http://localhost:8080/Brahmastra/otp-verify.php?phone="+str,true);
+        xmlhttp.open("GET"," http://localhost:8080/Brahmastra/trunk/otp-verify.php?phone="+str,true);
         xmlhttp.send();
     }
 }
@@ -135,7 +135,7 @@ if (str == "") {
                 }
             }
         };
-        xmlhttp.open("GET","http://localhost:8080/Brahmastra/verify-otp.php?phone="+str+"&otp="+otp,true);
+        xmlhttp.open("GET","http://localhost:8080/Brahmastra/trunk/verify-otp.php?phone="+str+"&otp="+otp,true);
         xmlhttp.send();
     }
 }
