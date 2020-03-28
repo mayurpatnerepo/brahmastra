@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', ''),
+    'host' => env('MAIL_HOST', 'mail.darstek.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', ''),
+        'address' => env('MAIL_FROM_ADDRESS', 'insights@darstek.com'),
         'name' => env('MAIL_FROM_NAME', 'Brahmastra'),
     ],
 
