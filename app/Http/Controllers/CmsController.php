@@ -39,7 +39,7 @@ class CmsController extends Controller
     		}
     		$cmspage->status = $status;
     		$cmspage->save();
-    		return redirect()->back()->with('flash_message_success','CMS Page has been added successfully');
+    		return redirect()->back()->with('success','CMS Page has been added successfully');
     	}
     	return view('admin.pages.add_cms_page');
     }
@@ -62,7 +62,7 @@ class CmsController extends Controller
                 $data['meta_keywords'] = "";    
             }
             CmsPage::where('id',$id)->update(['title'=>$data['title'],'url'=>$data['url'],'description'=>$data['description'],'meta_title'=>$data['meta_title'],'meta_description'=>$data['meta_description'],'meta_keywords'=>$data['meta_keywords'],'status'=>$status]);
-            return redirect()->back()->with('flash_message_success','CMS Page has been updated successfully!');
+            return redirect()->back()->with('success','CMS Page has been updated successfully!');
         }
         $cmsPage = CmsPage::where('id',$id)->first();
         return view('admin.pages.edit_cms_page')->with(compact('cmsPage'));
@@ -75,7 +75,7 @@ class CmsController extends Controller
 
     public function deleteCmsPage($id){
         CmsPage::where('id',$id)->delete();
-        return redirect('/admin/view-cms-pages')->with('flash_message_success','CMS Page has been deleted successfully!');
+        return redirect('/admin/view-cms-pages')->with('success','CMS Page has been deleted successfully!');
     }
 
     public function cmsPage($url){
@@ -134,12 +134,23 @@ class CmsController extends Controller
                 'subject' => 'required',
             ]);
 
-            if ($validator->fails()) {
+             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
+
+            $Enquiry= new Enquiry;
+               
+                $Enquiry->name = $data['name'];
+                $Enquiry->email = $data['email'];
+                $Enquiry->subject = $data['subject'];
+                $Enquiry->message = $data['message'];
+                $Enquiry->save();
+
+           
+
             // Send Contact Email
-            $email = "admin1000@yopmail.com";
+            $email = $data['email'];
             $messageData = [
                 'name'=>$data['name'],
                 'email'=>$data['email'],
@@ -180,6 +191,8 @@ class CmsController extends Controller
             </div>
             ";      
         }
+
+
 
         $meta_title = "Contact Us - E-shop Sample Website";
         $meta_description = "Contact us for any queries related to our products.";
@@ -238,7 +251,9 @@ class CmsController extends Controller
     }
 
     public function viewEnquiries(){
-        return view('admin.enquiries.view_enquiries');
+         $enquiries = Enquiry::orderBy('id','Desc')->get();
+         //return view('pages.post')->with(compact('categories_menu','categories'));
+        return view('admin.enquiries.view_enquiries')->with(compact('enquiries'));
     }
 
 
