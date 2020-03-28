@@ -18,7 +18,7 @@ class CouponsController extends Controller
 			$coupon->expiry_date = $data['expiry_date'];
 			$coupon->status = $data['status'];
 			$coupon->save();	
-			return redirect()->action('CouponsController@viewCoupons')->with('flash_message_success', 'Coupon has been added successfully');
+			return redirect()->action('CouponsController@viewCoupons')->with('success', 'Coupon has been added successfully');
 		}
 		return view('admin.coupons.add_coupon');
 	}  
@@ -37,7 +37,7 @@ class CouponsController extends Controller
 			}
 			$coupon->status = $data['status'];
 			$coupon->save();	
-			return redirect()->action('CouponsController@viewCoupons')->with('flash_message_success', 'Coupon has been updated successfully');
+			return redirect()->action('CouponsController@viewCoupons')->with('success', 'Coupon has been updated successfully');
 		}
 		$couponDetails = Coupon::find($id);
 		/*$couponDetails = json_decode(json_encode($couponDetails));
@@ -52,7 +52,7 @@ class CouponsController extends Controller
 
 	public function deleteCoupon($id = null){
         Coupon::where(['id'=>$id])->delete();
-        return redirect()->back()->with('flash_message_success', 'Coupon has been deleted successfully');
+        return redirect()->back()->with('success', 'Coupon has been deleted successfully');
     }
 
 }
