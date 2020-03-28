@@ -244,7 +244,7 @@ a#scrollUp i{
 
 .mainmenu ul li a {
 	color: #696763;
-	font-family: Palatino, URW Palladio L, serif;
+	font-family: 'proxima-nova', sans-serif;
 	font-size: 20px;
 	font-weight: 550;
 	padding: 0;
@@ -290,6 +290,7 @@ a#scrollUp i{
   -ms-animation: fadeInUp 400ms;
   -o-animation: fadeInUp 400ms;
   animation: fadeInUp 400ms;
+  text-decoration: none;
 }
 
 ul.sub-menu {
@@ -305,30 +306,35 @@ ul.sub-menu {
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 	display: none;
 	z-index: 10000;
-
+  
 }
 
 .dropdown ul.sub-menu li .active{
   color: #1c0e5f;
   padding-left: 0;
+  
 
 }
 
 
 .navbar-nav li ul.sub-menu li{
   padding: 10px 20px 0 ;
+  
 }
 
 .navbar-nav li ul.sub-menu li:last-child{
   padding-bottom: 20px;
+  
 }
 
 .navbar-nav li ul.sub-menu li a{
   color: #fff;
+
 }
 
 .navbar-nav li ul.sub-menu li a:hover{
     color: #1c0e5f;
+    text-decoration: none;
 }
 
 .fa-angle-down{
