@@ -6,6 +6,7 @@ use Session;
 use App\User;
 use App\Admin;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -19,7 +20,8 @@ class AdminController extends Controller
                 return redirect('/admin/dashboard');
         	}else{
                 //echo "failed"; die;
-                return redirect('/admin')->with('flash_message_error','Invalid Username or Password');
+                //alert()->error('Title','Lorem Lorem Lorem');
+                return redirect('/admin')->with('error', '    ');
         	}
     	}
     	return view('admin.admin_login');
@@ -68,9 +70,10 @@ class AdminController extends Controller
                 // here you know data is valid
                 $password = md5($data['new_pwd']);
                 Admin::where('username',Session::get('adminSession'))->update(['password'=>$password]);
-                return redirect('/admin/settings')->with('flash_message_success', 'Password updated successfully.');
+                return redirect('/admin/settings')->with('success', '  ');
+                
             }else{
-                return redirect('/admin/settings')->with('flash_message_error', 'Current Password entered is incorrect.');
+                return redirect('/admin/settings')->with('error', ' ');
             }
 
             
@@ -79,7 +82,7 @@ class AdminController extends Controller
 
     public function logout(){
         Session::flush();
-        return redirect('/admin')->with('flash_message_success', 'Logged out successfully.');
+        return redirect('/admin')->with('success', '  ');
        
     }
 
@@ -96,7 +99,7 @@ class AdminController extends Controller
             /*echo "<pre>";print_r($data); die;*/
             $adminCount = Admin::where('username',$data['username'])->count();
             if($adminCount>0){
-                return redirect()->back()->with('flash_message_error','Admin / Sub Admin already exists! Please choose another.');
+                return redirect()->back()->with('error','Admin / Sub Admin already exists! Please choose another.');
             }else{
                 if(empty($data['status'])){
                     $data['status'] = 0;
@@ -108,7 +111,7 @@ class AdminController extends Controller
                     $admin->password = md5($data['password']);
                     $admin->status = $data['status'];
                     $admin->save();
-                    return redirect()->back()->with('flash_message_success','Admin added successfully!');    
+                    return redirect()->back()->with('success','Admin added successfully!');    
                 }else if($data['type']=="Sub Admin"){
                     if(empty($data['categories_view_access'])){
                         $data['categories_view_access'] = 0;
@@ -146,7 +149,7 @@ class AdminController extends Controller
                     $admin->orders_access = $data['orders_access'];
                     $admin->users_access = $data['users_access'];
                     $admin->save();
-                    return redirect()->back()->with('flash_message_success','Sub Admin added successfully!');     
+                    return redirect()->back()->with('success','Sub Admin added successfully!');     
                 }
                 
             }
@@ -166,7 +169,7 @@ class AdminController extends Controller
             }
             if($data['type']=="Admin"){
                 Admin::where('username',$data['username'])->update(['password'=>md5($data['password']),'status'=>$data['status']]);
-                return redirect()->back()->with('flash_message_success','Admin updated successfully!');    
+                return redirect()->back()->with('success','Admin updated successfully!');    
             }else if($data['type']=="Sub Admin"){
                 if(empty($data['categories_view_access'])){
                     $data['categories_view_access'] = 0;
@@ -192,7 +195,7 @@ class AdminController extends Controller
                     $data['users_access'] = 0;
                 }
                 Admin::where('username',$data['username'])->update(['password'=>md5($data['password']),'status'=>$data['status'],'categories_view_access'=>$data['categories_view_access'],'categories_edit_access'=>$data['categories_edit_access'],'categories_full_access'=>$data['categories_full_access'],'products_access'=>$data['products_access'],'orders_access'=>$data['orders_access'],'users_access'=>$data['users_access']]);
-                return redirect()->back()->with('flash_message_success','Sub Admin updated successfully!');     
+                return redirect()->back()->with('success','Sub Admin updated successfully!');     
             }
 
         }
