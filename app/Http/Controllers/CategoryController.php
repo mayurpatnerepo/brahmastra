@@ -101,7 +101,7 @@ class CategoryController extends Controller
 
            // $categories = Category::where('status','1')->get();
 
-    		return redirect()->back()->with('flash_message_success', 'Category has been added successfully');
+    		return redirect()->back()->with('success', 'Category has been added successfully');
     	}
 
         $levels = Category::where(['parent_id'=>0])->get();
@@ -158,7 +158,7 @@ class CategoryController extends Controller
 
 
             Category::where(['id'=>$id])->update(['status'=>$status,'name'=>$data['category_name'],'parent_id'=>$data['parent_id'],'description'=>$data['description'],'url'=>$data['url'],'meta_title'=>$data['meta_title'],'image'=>$fileName,'meta_description'=>$data['meta_description'],'meta_keywords'=>$data['meta_keywords']]);
-            return redirect()->back()->with('flash_message_success', 'Category has been updated successfully');
+            return redirect()->back()->with('success', 'Category has been added successfully!  ');
         }
 
         $categoryDetails = Category::where(['id'=>$id])->first();
@@ -216,7 +216,7 @@ public function deleteCategoryImage($id){
         // Delete Image from Category table
         Category::where(['id'=>$id])->update(['image'=>'']);
 
-        return redirect()->back()->with('flash_message_success', 'Category image has been deleted successfully');
+        return redirect()->back()->with('success', 'Category image has been deleted successfully');
     }
 
 
@@ -224,7 +224,7 @@ public function deleteCategoryImage($id){
 
     public function deleteCategory($id = null){
         Category::where(['id'=>$id])->delete();
-        return redirect()->back()->with('flash_message_success', 'Category has been deleted successfully');
+        return redirect()->back()->with('success', 'Category has been deleted successfully');
     }
 
     public function viewCategories(){ 
