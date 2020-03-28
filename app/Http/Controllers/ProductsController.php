@@ -111,7 +111,7 @@ class ProductsController extends Controller
             $product->feature_item = $feature_item;
             $product->status = $status;
             $product->save();
-            return redirect()->back()->with('flash_message_success', 'Product has been added successfully');
+            return redirect()->back()->with('success', 'Product has been added successfully');
         }
 
         $categories = Category::where(['parent_id' => 0])->get();
@@ -211,7 +211,7 @@ class ProductsController extends Controller
                Product::where(['id'=>$id])->update(['feature_item'=>$feature_item,'status'=>$status,'category_id'=>$data['category_id'],'product_name'=>$data['product_name'],
                 'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'description'=>$data['description'],'care'=>$data['care'],'price'=>$data['price'],'weight'=>$data['weight'],'image'=>$fileName,'video'=>$videoName,'sleeve'=>$sleeve,'pattern'=>$pattern]);
         
-            return redirect()->back()->with('flash_message_success', 'Product has been edited successfully');
+            return redirect()->back()->with('success', 'Product has been edited successfully');
         }
 
         // Get Product Details start //
@@ -276,7 +276,7 @@ class ProductsController extends Controller
         // Delete Image from Products table
         Product::where(['id'=>$id])->update(['image'=>'']);
 
-        return redirect()->back()->with('flash_message_success', 'Product image has been deleted successfully');
+        return redirect()->back()->with('success', 'Product image has been deleted successfully');
     }
 
     public function deleteProductVideo($id){
@@ -294,7 +294,7 @@ class ProductsController extends Controller
         // Delete Video from Products table
         Product::where('id',$id)->update(['video'=>'']);
 
-        return redirect()->back()->with('flash_message_success','Product Video has been deleted successfully');
+        return redirect()->back()->with('success','Product Video has been deleted successfully');
     }
 
     public function deleteProductAltImage($id=null){
@@ -325,7 +325,7 @@ class ProductsController extends Controller
         // Delete Image from Products Images table
         ProductsImage::where(['id'=>$id])->delete();
 
-        return redirect()->back()->with('flash_message_success', 'Product alternate mage has been deleted successfully');
+        return redirect()->back()->with('success', 'Product alternate mage has been deleted successfully');
     }
 
     public function viewProducts(Request $request){
@@ -342,12 +342,12 @@ class ProductsController extends Controller
 
     public function deleteProduct($id = null){
         Product::where(['id'=>$id])->delete();
-        return redirect()->back()->with('flash_message_success', 'Product has been deleted successfully');
+        return redirect()->back()->with('success', 'Product has been deleted successfully');
     }
 
     public function deleteAttribute($id = null){
         ProductsAttribute::where(['id'=>$id])->delete();
-        return redirect()->back()->with('flash_message_success', 'Product Attribute has been deleted successfully');
+        return redirect()->back()->with('success', 'Product Attribute has been deleted successfully');
     }
 
     public function addAttributes(Request $request, $id=null){
@@ -502,6 +502,7 @@ class ProductsController extends Controller
 
         $colorArray = Product::select('product_color')->groupBy('product_color')->get();
         $colorArray = array_flatten(json_decode(json_encode($colorArray),true));
+        //echo "<pre>"; print_r($productsAll); die;
 
         $sleeveArray = Product::select('sleeve')->where('sleeve','!=','')->groupBy('sleeve')->get();
         $sleeveArray = array_flatten(json_decode(json_encode($sleeveArray),true));
@@ -1093,7 +1094,7 @@ class ProductsController extends Controller
                     'userDetails' => $userDetails
                 ];
                 Mail::send('emails.order',$messageData,function($message) use($email){
-                    $message->to($email)->subject('Order Placed - E-com Website');    
+                    $message->to($email)->subject('Order Placed -Brahmastra');    
                 });
                 /* Code for Order Email Ends */
 
@@ -1474,7 +1475,7 @@ footer {
         if($request->isMethod('post')){
             $data = $request->all();
             Order::where('id',$data['order_id'])->update(['order_status'=>$data['order_status']]);
-            return redirect()->back()->with('flash_message_success','Order Status has been updated successfully!');
+            return redirect()->back()->with('success','Order Status has been updated successfully!');
         }
     }
 
