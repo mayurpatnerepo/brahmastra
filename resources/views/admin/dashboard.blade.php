@@ -1,10 +1,20 @@
 @extends('layouts.adminLayout.admin_design')
 @section('content')
+
+<?php 
+
+use App\Category;
+use App\Order; 
+use App\User;
+use App\Product;
+use App\Enquiry;
+
+ ?>
 <!--main-container-part-->
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+    <div id="breadcrumb"> <a href="{{ url('admin/dashboard') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
     @if(Session::has('flash_message_error'))
         <div class="alert alert-error alert-block">
             <button type="button" class="close" data-dismiss="alert">×</button> 
@@ -21,26 +31,46 @@
 <!--End-breadcrumbs-->
 
 <!--Action boxes-->
+<?php  
+  $levels = Category::where(['parent_id'=>0])->get();
+  $wordCount = count($levels); 
+  
+  $order = Order::where(['order_status'=>'New'])->get();
+  $ord = count($order);
+
+  $user = User::where(['status'=>1])->get();
+  $use = count($user);
+
+$Product = Product::where(['status'=>1])->get();
+ $pro = count($Product);
+
+ $enquiries = Enquiry::orderBy('id','Desc')->get();
+ $enq = count($enquiries);
+
+
+
+
+?>
   <div class="container-fluid">
     <div class="quick-actions_homepage">
       <ul class="quick-actions">
         <li class="bg_lb"> <a href="{{ url('admin/dashboard') }}"> <i class="icon-dashboard"></i> <span class="label label-important"></span> My Dashboard </a> </li>
         <!-- <li class="bg_lg span3"> <a href="charts.html"> <i class="icon-signal"></i> Charts</a> </li> -->
         @if(Session::get('adminDetails')['categories_view_access']==1)
-        <li class="bg_ly"> <a href="{{ url('admin/view-categories') }}"> <i class="icon-inbox"></i><span class="label label-success">101</span> Categories </a> </li>
+        <li class="bg_ly"> <a href="{{ url('admin/view-categories') }}"> <i class="icon-inbox"></i><span class="label label-success">{{$wordCount}}</span> Categories </a> </li>
         @endif
         @if(Session::get('adminDetails')['products_access']==1)
-        <li class="bg_lo"> <a href="{{ url('admin/view-products') }}"> <i class="icon-inbox"></i><span class="label label-success">101</span> Products </a> </li>
+        <li class="bg_lo"> <a href="{{ url('admin/view-products') }}"> <i class="icon-inbox"></i><span class="label label-success">{{ $pro }}</span> Products </a> </li>
         @endif
         @if(Session::get('adminDetails')['orders_access']==1)
-        <li class="bg_lb"> <a href="{{ url('admin/view-orders') }}"> <i class="icon-inbox"></i><span class="label label-success">101</span> Orders </a> </li>
+        <li class="bg_lb"> <a href="{{ url('admin/view-orders') }}"> <i class="icon-inbox"></i><span class="label label-success">{{ $ord}}</span> Orders </a> </li>
         @endif
         @if(Session::get('adminDetails')['users_access']==1)
-        <li class="bg_lr"> <a href="{{ url('admin/view-users') }}"> <i class="icon-inbox"></i><span class="label label-success">101</span> Users </a> </li>
+        <li class="bg_lr"> <a href="{{ url('admin/view-users') }}"> <i class="icon-inbox"></i><span class="label label-success">{{ $use   }}</span> Users </a> </li>
         @endif
 
         @if(Session::get('adminDetails')['users_access']==1)
-        <li class="bg_lr"> <a href="{{ url('admin/view-enquiries') }}"> <i class="icon-inbox"></i><span class="label label-success">101</span>Enquiries</a> </li>
+        <li class="bg_lr"> <a href="{{ url('admin/view-enquiries') }}"> <i class="icon-inbox"></i><span class="label label-success">{{ $enq }}</span>Enquiries</a> </li>
         @endif
         <!-- <li class="bg_lo"> <a href="tables.html"> <i class="icon-th"></i> Tables</a> </li>
         <li class="bg_ls"> <a href="grid.html"> <i class="icon-fullscreen"></i> Full width</a> </li>
@@ -85,7 +115,7 @@
       <div class="span6">
         <div class="widget-box">
           <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
-            <h5>Latest Posts</h5>
+            <h5>Latest Product</h5>
           </div>
           <div class="widget-content nopadding collapse in" id="collapseG2">
             <ul class="recent-posts">
