@@ -17,7 +17,7 @@ class CurrencyController extends Controller
     		$currency->exchange_rate = $data['exchange_rate'];
     		$currency->status = $status;
     		$currency->save();
-    		return redirect()->back()->with('flash_message_success','Currency has been added successfully!');
+    		return redirect()->back()->with('success','Currency has been added successfully!');
     	}
     	return view('admin.currencies.add_currency');
     }
@@ -28,14 +28,14 @@ class CurrencyController extends Controller
             $data = $request->all();
             if(empty($data['status'])){ $status=0; }else{ $status=1; }
             Currency::where('id',$id)->update(['currency_code'=>$data['currency_code'],'exchange_rate'=>$data['exchange_rate'],'status'=>$status]);
-            return redirect()->back()->with('flash_message_success','Currency has been updated successfully!');
+            return redirect()->back()->with('success','Currency has been updated successfully!');
         }
         return view('admin.currencies.edit_currency')->with(compact('currencyDetails'));
     }
 
     public function deleteCurrency($id){
         Currency::where('id',$id)->delete();
-        return redirect()->back()->with('flash_message_success','Currency has been deleted successfully!');
+        return redirect()->back()->with('success','Currency has been deleted successfully!');
     }
 
     public function viewCurrencies(){
