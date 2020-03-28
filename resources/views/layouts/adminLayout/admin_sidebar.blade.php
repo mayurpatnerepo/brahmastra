@@ -42,7 +42,7 @@
     <?php 
        $base_order_url = trim(basename($url));
     ?>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Orders</span> <span class="label label-important">1</span></a>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Orders</span> <span class="label label-important">2</span></a>
       <ul <?php if (preg_match("/orders/i", $url)){ ?> style="display: block;" <?php } ?>>
         <li <?php if ($base_order_url=="view-orders"){ ?> class="active" <?php } ?>><a href="{{ url('/admin/view-orders')}}">View Orders</a></li>
         <li <?php if ($base_order_url=="view-orders-charts"){ ?> class="active" <?php } ?>><a href="{{ url('/admin/view-orders-charts')}}">View Orders Charts</a></li>
@@ -61,7 +61,7 @@
     <?php 
        $base_user_url = trim(basename($url));
     ?>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Users</span> <span class="label label-important">1</span></a>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Users</span> <span class="label label-important">2</span></a>
       <ul <?php if (preg_match("/users/i", $url)){ ?> style="display: block;" <?php } ?>>
         <li <?php if ($base_user_url=="view-users"){ ?> class="active" <?php } ?>><a href="{{ url('/admin/view-users')}}">View Users</a></li>
         <li <?php if ($base_user_url=="view-users-charts"){ ?> class="active" <?php } ?>><a href="{{ url('/admin/view-users-charts')}}">View Users Charts</a></li>
@@ -99,11 +99,11 @@
         <li <?php if (preg_match("/view-shipping/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/view-shipping')}}">Shipping Charges</a></li>
       </ul>
     </li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Newsletter Subscribers</span> <span class="label label-important">1</span></a>
+    <!--<li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Newsletter Subscribers</span> <span class="label label-important">1</span></a>
       <ul <?php if (preg_match("/newsletter-subscribers/i", $url)){ ?> style="display: block;" <?php } ?>>
         <li <?php if (preg_match("/newsletter-subscribers/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/view-newsletter-subscribers')}}">Newsletters</a></li>
       </ul>
-    </li>
+    </li>-->
     @endif
   </ul>
 </div>

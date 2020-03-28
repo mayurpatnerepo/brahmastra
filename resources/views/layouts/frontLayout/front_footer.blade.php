@@ -112,7 +112,7 @@
 							<h2>Company</h2>
 							<ul class="nav nav-pills nav-stacked">
 								<li><a href="#">ABOUT US</a></li>
-								<li><a href="#">CONTACT US</a></li>
+								<li><a href="{{ url('page/contact') }}">CONTACT US</a></li>
 								<li><a href="#">FAQ'S</a></li>
 								<li><a href="#">SITE MAP</a></li>
 								<!--<li><a href="#">Shoes</a></li>-->

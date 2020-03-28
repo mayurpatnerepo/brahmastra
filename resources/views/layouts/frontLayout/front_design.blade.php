@@ -26,6 +26,7 @@
     <![endif]-->       
     <link rel="shortcut icon" href="{{ asset('css/frontend_css/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href=" {{ asset('css/frontend_css/favicon-32x32.png') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
     <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5cc08788f3971d0012e248e5&product=inline-share-buttons' async='async'></script>
 
 
@@ -52,6 +53,7 @@
      
     <!-- <script src="{{ asset('js/app.js') }}"></script> -->
     <scipt src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></scipt>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
     <script>
         $(function () {
           $('[data-toggle="tooltip"]').tooltip()

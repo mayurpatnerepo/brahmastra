@@ -18,6 +18,13 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="{{ asset('css/frontend_css/font-awesome.min.css') }}" rel="stylesheet">
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+
+
+
+        
+
+
 
 <link rel="shortcut icon" href="{{ asset('css/frontend_css/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href=" {{ asset('css/frontend_css/favicon-32x32.png') }}">
@@ -48,6 +55,14 @@
 <script src="{{ asset('js/backend_js/sweetalert.min.js') }}"></script>
 <script src="{{ asset('js/backend_js/wysihtml5-0.3.0.js') }}"></script>
 <script src="{{ asset('js/backend_js/bootstrap-wysihtml5.js') }}"></script>
+<script src="{{ asset('js/backend_js/sweetalert.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+
+
+            
+        </script>
+       
+       
 <script>
 	$('.textarea_editor').wysihtml5();
 	$('.textarea_care').wysihtml5();
