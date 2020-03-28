@@ -39,7 +39,7 @@ class BannersController extends Controller
 
             $banner->status = $status;
 			$banner->save();
-			return redirect()->back()->with('flash_message_success', 'Banner has been added successfully');
+			return redirect()->back()->with('success', 'Banner has been added successfully');
     	}
     	
     	return view('admin.banners.add_banner');
@@ -82,7 +82,7 @@ class BannersController extends Controller
 
 
             Banner::where('id',$id)->update(['status'=>$status,'title'=>$data['title'],'link'=>$data['link'],'image'=>$fileName]);
-            return redirect()->back()->with('flash_message_success','Banner has been edited Successfully');
+            return redirect()->back()->with('success','Banner has been edited Successfully');
 
         }
         $bannerDetails = Banner::where('id',$id)->first();
@@ -96,7 +96,7 @@ class BannersController extends Controller
 
     public function deleteBanner($id = null){
         Banner::where(['id'=>$id])->delete();
-        return redirect()->back()->with('flash_message_success', 'Banner has been deleted successfully');
+        return redirect()->back()->with('success', 'Banner has been deleted successfully');
     }
 
 
