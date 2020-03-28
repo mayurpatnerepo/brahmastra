@@ -10,83 +10,13 @@ use App\ProductsImage;
 
 
  ?>
-<section>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
 
-
-
-				<!--	<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
-						</ol>
-						
-						<div class="carousel-inner">
-							<div class="item active">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2> E-Commerce </h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
-								</div>
-							</div>
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>100% Responsive Design</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="images/home/girl2.jpg" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png"  class="pricing" alt="" />
-								</div>
-							</div>
-							
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2> Ecommerce </h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-							
-								<div class="col-sm-6">
-									<img src="{{ asset('images/backend_images/product/small/' ) }}" class="girl img-responsive" alt="" />
-									<img src="images/home/pricing.png" class="pricing" alt="" />
-								</div>
-								 
-							</div>
-							
-						</div>
-						
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
-					</div>-->
-					
-				</div>
-			</div>
-		</div>
-	</section>
-
-	
 <section>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3">
 
-				<form action="{{ url('/products-filter') }}" method="post">
+		<form action="{{ url('/products-filter') }}" method="post">
 					{{ csrf_field() }}
 	@if(!empty($url))
 	<input name="url" value="{{ $url }}" type="hidden">
@@ -127,12 +57,11 @@ use App\ProductsImage;
         @if(!empty($url))	
 								
 <?php $var="1";
- // $permArray = [];
    $permArray= (array) null
  ?>
-@foreach($productsAll  as $pro)
 
-       
+
+@foreach($productsAll  as $pro)
 
         @if(empty($pro->sleeve))
         @else
@@ -158,31 +87,37 @@ use App\ProductsImage;
 
 								
                         <?php array_push($permArray, $pro->sleeve); ?>
-<div class="panel-group" style="margin-bottom: 5px;">
+                         <div class="panel-group" style="margin-bottom: 5px;">
+                            
+                         	@if(!empty($_GET['sleeve']))
+						<?php $sleeveArr = explode('-',$_GET['sleeve']) ?>
+						@if(in_array($pro->sleeve,$sleeveArr))
+							<?php $sleevecheck="checked"; ?>	
+						@else
+							<?php $sleevecheck=""; ?>
+						@endif		
+					@else
+						<?php $sleevecheck=""; ?>
+					@endif
                     <div class="panel panel-default">
 						<div class="panel-heading">
                             <h4 class="panel-title">
-                               <input name="colorFilter[]" onchange="javascript:this.form.submit();" id="{{ $pro }}" value="{{ $pro }}" type="checkbox" {{ $pro }}>&nbsp;&nbsp;<span class="products-colors">{{ $pro->sleeve }}</span>
+                               <input name="colorFilter[]" onchange="javascript:this.form.submit();" id="{{$pro->sleeve  }}" value="{{ $pro->sleeve }}" type="checkbox" {{ $sleevecheck }}>&nbsp;&nbsp;<span class="products-colors">{{ $pro->sleeve }}</span>
+
                               </h4>
                          </div>
 					</div>
-
-	</div>				
+                 </div>				
 						@endif
-
-
-						
-							
-						
-				
-		
-		@endif
+						@endif
         @endforeach      
                     
 		            
 
     <?php $var="1"; 
           $permArray= (array) null
+
+           //$colorArray = Product::select('product_color')->groupBy('product_color')->get();
      ?>    
 @foreach($productsAll as $pro)
 
@@ -201,23 +136,47 @@ use App\ProductsImage;
 
                                @endif
 						 
-              <div class="panel-group" style="margin-bottom: 5px;">
 
+
+              <div class="panel-group" style="margin-bottom: 5px;">
+              
+                    @if(!empty($_GET['color']))
+						<?php $colorArr = explode('-',$_GET['color']) ?>
+						@if(in_array($pro->product_color,$colorArr))
+							<?php $colorcheck="checked"; ?>	
+						@else
+							<?php $colorcheck=""; ?>
+						@endif		
+					@else
+						<?php $colorcheck=""; ?>
+					@endif
 
                           @if(in_array($pro->product_color ,$permArray))
                           @else 
+     <?php array_push($permArray, $pro->product_color ); ?>
+
+
+                    
+					<div class="panel panel-default">
+							
+						<div class="panel-heading">
+						
+							<h4 class="panel-title">
 
                      
-                           <?php array_push($permArray, $pro->product_color ); ?>
+                      
+				<input name="colorFilter[]" onchange="javascript:this.form.submit();" id="{{$pro->product_color  }}" value="{{ $pro->product_color }}" type="checkbox" {{ $colorcheck }}>&nbsp;&nbsp;<span class="products-colors">{{ $pro->product_color }}</span>
 
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-                              <input name="colorFilter[]" onchange="javascript:this.form.submit();" id="{{ $pro }}" value="{{ $pro }}" type="checkbox" {{ $pro }}>&nbsp;&nbsp;<span class="products-colors">{{ $pro->product_color }}</span>
+                              
 							</h4>
+
+							
 						</div>
+						
 					</div>
+					
 					@endif
+				
 				
 		</div>
 
@@ -226,7 +185,7 @@ use App\ProductsImage;
 		@endforeach       
         @endif	
 </div>
-			</form>
+	</form>
 			</div>
 			
 			<div class="col-sm-9 padding-right">
