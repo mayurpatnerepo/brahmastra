@@ -57,8 +57,8 @@ $mainCategories =  Controller::mainCategories();
           </div>
       </div>
 			<div class="col-sm-12">
-			 <?php $mainCategories = Category::where(['parent_id' => 0])->paginate(4); ?>
-			   @foreach($mainCategories as $key => $cat)
+			 <?php $mainCategories = Category::where(['parent_id' => 0])->take(4)->get(); ?>
+			   @foreach($mainCategories as $cat)
 
 			       <div class="col-sm-6" ><br>
 					   <div class="product1   @if($key==0) active @endif">
