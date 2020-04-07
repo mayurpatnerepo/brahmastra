@@ -25,6 +25,7 @@
                         <th>Product Color</th>
                         <th>Product Price</th>
                         <th>Product Qty</th>
+                         
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,7 @@
                         <td>{{ $pro->product_color }}</td>
                         <td>{{ $pro->product_price }}</td>
                         <td>{{ $pro->product_qty }}</td>
+
                     </tr>
                     @endforeach
                 </tbody>
