@@ -444,6 +444,7 @@ class ProductsController extends Controller
 
         // Show 404 Page if Category does not exists
         $categoryCount = Category::where(['url'=>$url,'status'=>1])->count();
+       /* echo "<pre>"; print_r($categoryCount); die;*/
         if($categoryCount==0){
             abort(404);
         }
@@ -453,13 +454,19 @@ class ProductsController extends Controller
 
         $categoryDetails = Category::where(['url'=>$url])->first();
 
+        /*echo "<pre>"; print_r($categoryDetails); die;*/
+
         if($categoryDetails->parent_id==0){
             $subCategories = Category::where(['parent_id'=>$categoryDetails->id])->get();
             $subCategories = json_decode(json_encode($subCategories));
+
             foreach($subCategories as $subcat){
                 $cat_ids[] = $subcat->id;
+
             }
             $productsAll = Product::whereIn('products.category_id', $cat_ids)->where('products.status','1')->orderBy('products.id','Desc');
+
+
             $breadcrumb = "<a href='/'>Home</a> / <a href='".$categoryDetails->url."'>".$categoryDetails->name."</a>";
         }else{
             $productsAll = Product::where(['products.category_id'=>$categoryDetails->id])->where('products.status','1')->orderBy('products.id','Desc');
@@ -470,6 +477,7 @@ class ProductsController extends Controller
         if(!empty($_GET['color'])){
             $colorArray = explode('-',$_GET['color']);
             $productsAll = $productsAll->whereIn('products.product_color',$colorArray);
+
         }
 
 
@@ -499,7 +507,7 @@ class ProductsController extends Controller
         
 
         /*$colorArray = array('Black','Blue','Brown','Gold','Green','Orange','Pink','Purple','Red','Silver','White','Yellow');*/
-
+           //Fetch all data from database
         $colorArray = Product::select('product_color')->groupBy('product_color')->get();
         $colorArray = array_flatten(json_decode(json_encode($colorArray),true));
         //echo "<pre>"; print_r($productsAll); die;
@@ -518,7 +526,7 @@ class ProductsController extends Controller
         $meta_title = $categoryDetails->meta_title;
         $meta_description = $categoryDetails->meta_description;
         $meta_keywords = $categoryDetails->meta_keywords;
-        return view('products.listing')->with(compact('categories','productsAll','categoryDetails','meta_title','meta_description','meta_keywords','url','colorArray','sleeveArray','patternArray','sizesArray','breadcrumb',' $categoryDetails'));
+        return view('products.listing')->with(compact('categories','productsAll','categoryDetails','meta_title','meta_description','meta_keywords','url','colorArray','sleeveArray','patternArray','sizesArray','breadcrumb'));
     }
 
     public function filter(Request $request){
@@ -535,6 +543,8 @@ class ProductsController extends Controller
                 }
             }
         }
+
+       /* echo "<pre>"; print_r($data['colorFilter']); die;*/
 
         $sleeveUrl="";
         if(!empty($data['sleeveFilter'])){
@@ -657,12 +667,12 @@ class ProductsController extends Controller
 
             // Check User is logged in
             if(!Auth::check()){
-                return redirect()->back()->with('flash_message_error','Please login to add product in your Wish List');
+                return redirect()->back()->with('error','Please login to add product in your Wish List');
             }
 
             // Check Size is selected
             if(empty($data['size'])){
-                return redirect()->back()->with('flash_message_error','Please select size to add product in your Wish List');
+                return redirect()->back()->with('error','Please select size to add product in your Wish List');
             }
 
             // Get Product Size
@@ -685,11 +695,11 @@ class ProductsController extends Controller
             $wishListCount = DB::table('wish_list')->where(['user_email'=>$user_email,'product_id'=>$data['product_id'],'product_color'=>$data['product_color'],'size'=>$product_size])->count();
 
             if($wishListCount>0){
-                return redirect()->back()->with('flash_message_error','Product already exists in Wish List!');
+                return redirect()->back()->with('error','Product already exists in Wish List!');
             }else{
                 // Insert Product in Wish List
                 DB::table('wish_list')->insert(['product_id'=>$data['product_id'],'product_name'=>$data['product_name'],'product_code'=>$data['product_code'],'product_color'=>$data['product_color'],'price'=>$product_price,'size'=>$product_size,'quantity'=>$quantity,'user_email'=>$user_email,'created_at'=>$created_at]);
-                return redirect()->back()->with('flash_message_success','Product has been added in Wish List');
+                return redirect()->back()->with('success','Product has been added in Wish List');
             }
 
 
@@ -705,7 +715,7 @@ class ProductsController extends Controller
             $getProductStock = ProductsAttribute::where(['product_id'=>$data['product_id'],'size'=>$product_size[1]])->first();
 
             if($getProductStock->stock<$data['quantity']){
-                return redirect()->back()->with('flash_message_error','Required Quantity is not available!');
+                return redirect()->back()->with('error','Required Quantity is not available!');
             }
 
             if(empty(Auth::user()->email)){
@@ -727,12 +737,12 @@ class ProductsController extends Controller
             if(empty(Auth::check())){
                 $countProducts = DB::table('cart')->where(['product_id' => $data['product_id'],'product_color' => $data['product_color'],'size' => $product_size,'session_id' => $session_id])->count();
                 if($countProducts>0){
-                    return redirect()->back()->with('flash_message_error','Product already exist in Cart!');
+                    return redirect()->back()->with('error','Product already exist in Cart!');
                 }
             }else{
                 $countProducts = DB::table('cart')->where(['product_id' => $data['product_id'],'product_color' => $data['product_color'],'size' => $product_size,'user_email' => $data['user_email']])->count();
                 if($countProducts>0){
-                    return redirect()->back()->with('flash_message_error','Product already exist in Cart!');
+                    return redirect()->back()->with('error','Product already exist in Cart!');
                 }    
             }
             
@@ -743,7 +753,7 @@ class ProductsController extends Controller
                 'product_code' => $getSKU['sku'],'product_color' => $data['product_color'],
                 'price' => $data['price'],'size' => $product_size,'quantity' => $data['quantity'],'user_email' => $data['user_email'],'session_id' => $session_id]);
 
-            return redirect('cart')->with('flash_message_success','Product has been added in Cart!');
+            return redirect('cart')->with('success','Product has been added in Cart!');
 
         }
 
@@ -803,9 +813,9 @@ class ProductsController extends Controller
         $updated_quantity = $getProductSKU->quantity+$quantity;
         if($getProductStock->stock>=$updated_quantity){
             DB::table('cart')->where('id',$id)->increment('quantity',$quantity); 
-            return redirect('cart')->with('flash_message_success','Product Quantity has been updated in Cart!');   
+            return redirect('cart')->with('success','Product Quantity has been updated in Cart!');   
         }else{
-            return redirect('cart')->with('flash_message_error','Required Product Quantity is not available!');    
+            return redirect('cart')->with('error','Required Product Quantity is not available!');    
         }
     }
 
@@ -813,7 +823,7 @@ class ProductsController extends Controller
         Session::forget('CouponAmount');
         Session::forget('CouponCode');
         DB::table('cart')->where('id',$id)->delete();
-        return redirect('cart')->with('flash_message_success','Product has been deleted in Cart!');
+        return redirect('cart')->with('success','Product has been deleted in Cart!');
     }
 
     public function applyCoupon(Request $request){
@@ -825,7 +835,7 @@ class ProductsController extends Controller
         /*echo "<pre>"; print_r($data); die;*/
         $couponCount = Coupon::where('coupon_code',$data['coupon_code'])->count();
         if($couponCount == 0){
-            return redirect()->back()->with('flash_message_error','This coupon does not exists!');
+            return redirect()->back()->with('error','This coupon does not exists!');
         }else{
             // with perform other checks like Active/Inactive, Expiry date..
 
@@ -834,14 +844,14 @@ class ProductsController extends Controller
             
             // If coupon is Inactive
             if($couponDetails->status==0){
-                return redirect()->back()->with('flash_message_error','This coupon is not active!');
+                return redirect()->back()->with('error','This coupon is not active!');
             }
 
             // If coupon is Expired
             $expiry_date = $couponDetails->expiry_date;
             $current_date = date('Y-m-d');
             if($expiry_date < $current_date){
-                return redirect()->back()->with('flash_message_error','This coupon is expired!');
+                return redirect()->back()->with('error','This coupon is expired!');
             }
 
             // Coupon is Valid for Discount
@@ -871,7 +881,7 @@ class ProductsController extends Controller
             Session::put('CouponAmount',$couponAmount);
             Session::put('CouponCode',$data['coupon_code']);
 
-            return redirect()->back()->with('flash_message_success','Coupon code successfully
+            return redirect()->back()->with('success','Coupon code successfully
                 applied. You are availing discount!');
 
         }
@@ -898,7 +908,7 @@ class ProductsController extends Controller
             /*echo "<pre>"; print_r($data); die;*/
             // Return to Checkout page if any of the field is empty
             if(empty($data['billing_name']) || empty($data['billing_address']) || empty($data['billing_city']) || empty($data['billing_state']) || empty($data['billing_country']) || empty($data['billing_pincode']) || empty($data['billing_mobile']) || empty($data['shipping_name']) || empty($data['shipping_address']) || empty($data['shipping_city']) || empty($data['shipping_state']) || empty($data['shipping_country']) || empty($data['shipping_pincode']) || empty($data['shipping_mobile'])){
-                    return redirect()->back()->with('flash_message_error','Please fill all fields to Checkout!');
+                    return redirect()->back()->with('error','Please fill all fields to Checkout!');
             }
 
             // Update User details
@@ -924,7 +934,7 @@ class ProductsController extends Controller
 
             $pincodeCount = DB::table('pincodes')->where('pincode',$data['shipping_pincode'])->count();
             if($pincodeCount == 0){
-                return redirect()->back()->with('flash_message_error','Your location is not available for delivery. Please enter another location.');
+                return redirect()->back()->with('error','Your location is not available for delivery. Please enter another location.');
             }
 
             return redirect()->action('ProductsController@orderReview');
@@ -972,31 +982,31 @@ class ProductsController extends Controller
                 $getAttributeCount = Product::getAttributeCount($cart->product_id,$cart->size);
                 if($getAttributeCount==0){
                     Product::deleteCartProduct($cart->product_id,$user_email);
-                    return redirect('/cart')->with('flash_message_error','One of the product is not available. Try again!');
+                    return redirect('/cart')->with('error','One of the product is not available. Try again!');
                 }
 
                 $product_stock = Product::getProductStock($cart->product_id,$cart->size);
                 if($product_stock==0){
                     Product::deleteCartProduct($cart->product_id,$user_email);
-                    return redirect('/cart')->with('flash_message_error','Sold Out product removed from Cart. Try again!');
+                    return redirect('/cart')->with('error','Sold Out product removed from Cart. Try again!');
                 }
                 /*echo "Original Stock: ".$product_stock;
                 echo "Demanded Stock: ".$cart->quantity; die;*/
                 if($cart->quantity>$product_stock){
-                    return redirect('/cart')->with('flash_message_error','Reduce Product Stock and try again.');    
+                    return redirect('/cart')->with('error','Reduce Product Stock and try again.');    
                 }
 
                 $product_status = Product::getProductStatus($cart->product_id);
                 if($product_status==0){
                     Product::deleteCartProduct($cart->product_id,$user_email);
-                    return redirect('/cart')->with('flash_message_error','Disabled product removed from Cart. Please try again!');
+                    return redirect('/cart')->with('error','Disabled product removed from Cart. Please try again!');
                 }
 
                 $getCategoryId = Product::select('category_id')->where('id',$cart->product_id)->first();
                 $category_status = Product::getCategoryStatus($getCategoryId->category_id);
                 if($category_status==0){
                     Product::deleteCartProduct($cart->product_id,$user_email);
-                    return redirect('/cart')->with('flash_message_error','One of the product category is disabled. Please try again!');    
+                    return redirect('/cart')->with('error','One of the product category is disabled. Please try again!');    
                 }
 
             }
@@ -1006,7 +1016,7 @@ class ProductsController extends Controller
 
             $pincodeCount = DB::table('pincodes')->where('pincode',$shippingDetails->pincode)->count();
             if($pincodeCount == 0){
-                return redirect()->back()->with('flash_message_error','Your location is not available for delivery. Please enter another location.');
+                return redirect()->back()->with('error','Your location is not available for delivery. Please enter another location.');
             }
 
             if(empty(Session::get('CouponCode'))){
@@ -1492,14 +1502,33 @@ footer {
 
       public function deleteWishlistProduct($id){ 
         DB::table('wish_list')->where('id',$id)->delete();
-        return redirect()->back()->with('flash_message_success','Product has been deleted from Wish List');
+        return redirect()->back()->with('success','Product has been deleted from Wish List');
     }
 
      public function viewOrdersCharts(){
+
+         // $dueToday = Carbon::today();
+           //$yesterday = Carbon::yesterday();
+           //$tomorrow  =  Carbon::tomorrow()
+
+
+     $days_current_month_orders = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->whereDate('created_at',Carbon::today())->orderBy('id', 'DESC')->count();
+
+            //$days_current_month_orders1 = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->whereDate('created_at', $yesterday)->count();
+
+            // $days_current_month_orders2 = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->whereDate('created_at', $tomorrow)->count();
+
+
         $current_month_orders = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->count();
         $last_month_orders = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->subMonth(1))->count();
         $last_to_last_month_orders = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->subMonth(2))->count();
-        return view('admin.products.view_orders_charts')->with(compact('current_month_orders','last_month_orders','last_to_last_month_orders'));
+         $month_orders = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->subMonth(3))->count();
+        //$last_to_last_month_orderss = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->subMonth(3))->count();
+
+
+
+       
+        return view('admin.products.view_orders_charts')->with(compact('current_month_orders','last_month_orders','last_to_last_month_orders','month_orders','days_current_month_orders','days_current_month_orders1'));
     }
 
 
