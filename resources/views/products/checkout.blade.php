@@ -1,6 +1,9 @@
 @extends('layouts.frontLayout.front_design')
 @section('content')
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+
 <section id="form" style="margin-top:20px;"><!--form-->
 	<div class="container">
 		<div class="breadcrumbs">
@@ -9,12 +12,12 @@
 			  <li class="active">Check Out</li>
 			</ol>
 		</div>
-		@if(Session::has('flash_message_error'))
-            <div class="alert alert-error alert-block" style="background-color:#f4d2d2">
-                <button type="button" class="close" data-dismiss="alert">×</button> 
-                    <strong>{!! session('flash_message_error') !!}</strong>
-            </div>
-		@endif
+		<script>
+           @if (session('error'))
+           swal("{{ session('error') }}");
+         @endif
+
+     </script>
 		<form action="{{ url('/checkout') }}" method="post">{{ csrf_field() }}
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">

@@ -1,5 +1,11 @@
 @extends('layouts.frontLayout.front_design')
 @section('content')
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+
+
 <?php use App\Product; ?>
 <section id="cart_items">
 		<div class="container">
@@ -16,12 +22,12 @@
 			</div>
 
 			<div class="row">
-				@if(Session::has('flash_message_error'))
-		            <div class="alert alert-error alert-block" style="background-color:#f4d2d2">
-		                <button type="button" class="close" data-dismiss="alert">×</button> 
-		                    <strong>{!! session('flash_message_error') !!}</strong>
-		            </div>
-        		@endif 
+				<script>
+                    @if (session('error'))
+                    swal("{{ session('error') }}");
+                    @endif
+
+               </script>
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form">
 						<h2>Billing Details</h2>
