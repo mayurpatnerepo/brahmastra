@@ -161,7 +161,7 @@ class CmsController extends Controller
                 $message->to($email)->subject('Enquiry from E-com Website');
             });
 
-            return redirect()->back()->with('flash_message_success','Thanks for your enquiry. We will get back to you soon.');
+            return redirect()->back()->with('success','Thanks for your enquiry. We will get back to you soon.');
         }
 
         // Get All Categories and Sub Categories
@@ -273,7 +273,7 @@ class CmsController extends Controller
         // $productDetails = Product::with('attributes')->where('id',$id)->first();
          $categoryDetails = Category::where('parent_id',$id)->get();
           //$productDetails = Product::where(['id'=>$id])->first();
-          return view('pages.categoryl2',compact('categories','categoryDetails','product'))->with('parent_id',$id);
+          return view('pages.categoryl2',compact('categories','categoryDetails'))->with('parent_id',$id);
         // $category = Category::all();
           // $categoryDetails1 = Category::where('parent_id',$parent_id)->first();
       
