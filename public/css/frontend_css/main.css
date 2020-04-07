@@ -141,7 +141,7 @@ a#scrollUp i{
 }
 
 .header-middle .container .row {
-  border-bottom: 1px solid #f5f5f5;
+  
   margin-left: 0;
   margin-right: 0;
   padding-bottom: 20px;
@@ -201,7 +201,7 @@ a#scrollUp i{
 }
 
 
-.shop-menu ul li a {
+.shop-menu ul li a{
   background: #FFFFFF;
   color: #696763;
   font-family: 'Roboto', sans-serif;
@@ -210,6 +210,9 @@ a#scrollUp i{
   padding:0;
   padding-right: 0;
   margin-top: 10px;
+    
+  
+   
 }
 
 
@@ -227,6 +230,10 @@ a#scrollUp i{
 .header-bottom {
   padding-bottom: 30px;
   padding-top: 30px;
+  border-bottom: 4px double #333;
+    border-top: 4px double #333;
+    padding: 10px 0;
+    background-color: #172337;
 }
 
 .navbar-collapse.collapse{
@@ -243,7 +250,7 @@ a#scrollUp i{
 }
 
 .mainmenu ul li a {
-	color: #696763;
+	color: #fff
 	font-family: 'proxima-nova', sans-serif;
 	font-size: 20px;
 	font-weight: 550;
@@ -253,7 +260,7 @@ a#scrollUp i{
 
 .mainmenu ul li a:hover, .mainmenu ul li a.active,  .shop-menu ul li a.active{
 	background:none;
-	color:#1c0e5f;
+	color:#fff;
 }
 
 .search_box input {
