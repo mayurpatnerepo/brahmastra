@@ -1,22 +1,24 @@
 @extends('layouts.adminLayout.admin_design')
 @section('content')
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Users</a> <a href="#" class="current">View Users</a> </div>
+    <div id="breadcrumb"> <a href="{{ url('admin/dashboard') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Users</a> <a href="#" class="current">View Users</a> </div>
     <h1>Users</h1>
-    @if(Session::has('flash_message_error'))
-      <div class="alert alert-error alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
-              <strong>{!! session('flash_message_error') !!}</strong>
-      </div>
-    @endif   
-    @if(Session::has('flash_message_success'))
-        <div class="alert alert-success alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button> 
-                <strong>{!! session('flash_message_success') !!}</strong>
-        </div>
-    @endif
+     <script>
+             @if (session('success'))
+           swal("{{ session('success') }}");
+         @endif
+     </script>
+         <script>
+           @if (session('error'))
+           swal("{{ session('error') }}");
+         @endif
+
+     </script>
   </div>
   <div style="margin-left:20px;">
     <a href="{{ url('/admin/export-users') }}" class="btn btn-primary btn-mini">Export</a>

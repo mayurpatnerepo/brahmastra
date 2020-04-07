@@ -3,7 +3,7 @@
 
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Categories</a> <a href="#" class="current">View Categories</a> </div>
+    <div id="breadcrumb"> <a href="{{ url('admin/dashboard') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Categories</a> <a href="#" class="current">View Categories</a> </div>
     <h1>Categories</h1>
     @if(Session::has('flash_message_error'))
             <div class="alert alert-error alert-block">
@@ -66,10 +66,10 @@
                   </td>
                    <td class="center">
                     @if(Session::get('adminDetails')['categories_edit_access']==1)
-                    <a href="{{ url('/admin/edit-category/'.$category->id) }}" class="btn btn-primary btn-mini">Edit</a> 
+                    <a href="{{ url('/admin/edit-category/'.$category->id) }}" class="btn btn-primary btn-mini" style="border-radius: 10px;">Edit</a> 
                     @endif
                     @if(Session::get('adminDetails')['categories_full_access']==1)
-                    <a <?php /* id="delCat" href="{{ url('/admin/delete-category/'.$category->id) }}" */ ?> rel="{{ $category->id }}" rel1="delete-category" href="javascript:" class="btn btn-danger btn-mini deleteRecord">Delete</a></td>
+                    <a <?php /* id="delCat" href="{{ url('/admin/delete-category/'.$category->id) }}" */ ?> rel="{{ $category->id }}" rel1="delete-category" href="javascript:" class="btn btn-danger btn-mini deleteRecord" style="border-radius: 10px;">Delete</a></td>
                     @endif
                   </tr>
                 @endforeach

@@ -1,3 +1,5 @@
+
+
 @extends('layouts.adminLayout.admin_design')
 @section('content')
 
@@ -7,7 +9,7 @@
 
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Products</a> <a href="#" class="current">View Products</a> </div>
+    <div id="breadcrumb"> <a href="{{ url('admin/dashboard') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Products</a> <a href="#" class="current">View Products</a> </div>
     <h1>Products</h1>
     @if(Session::has('flash_message_error'))
             <div class="alert alert-error alert-block">
@@ -73,11 +75,11 @@
                     @endif
                   </td>
                   <td class="center">
-                    <a href="#myModal{{ $product->id }}" data-toggle="modal" class="btn btn-success btn-mini">View</a> 
-                    <a href="{{ url('/admin/edit-product/'.$product->id) }}" class="btn btn-primary btn-mini">Edit</a> 
-                    <a href="{{ url('/admin/add-attributes/'.$product->id) }}" class="btn btn-success btn-mini">Add</a>
-                    <a href="{{ url('/admin/add-images/'.$product->id) }}" class="btn btn-info btn-mini">Add</a>
-                   <a id="delProduct" rel="{{ $product->id }}" rel1="delete-product" href="javascript:" class="btn btn-danger btn-mini deleteRecord">Delete</a>
+                    <a href="#myModal{{ $product->id }}" data-toggle="modal" class="btn btn-success btn-mini" style="border-radius: 10px;">View</a> 
+                    <a href="{{ url('/admin/edit-product/'.$product->id) }}" class="btn btn-primary btn-mini"style="border-radius: 10px;">Edit</a> 
+                    <a href="{{ url('/admin/add-attributes/'.$product->id) }}" class="btn btn-success btn-mini" style="border-radius: 10px;">Size</a>
+                    <a href="{{ url('/admin/add-images/'.$product->id) }}" class="btn btn-info btn-mini" style="border-radius: 10px;">Image</a>
+                   <a id="delProduct" rel="{{ $product->id }}" rel1="delete-product" href="javascript:" class="btn btn-danger btn-mini deleteRecord" style="border-radius: 10px;">Delete</a>
                         <div id="myModal{{ $product->id }}" class="modal hide">
                           <div class="modal-header">
                             <button data-dismiss="modal" class="close" type="button">×</button>
