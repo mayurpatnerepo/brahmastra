@@ -2,7 +2,8 @@
 @section('content')
 
 
- 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
@@ -120,7 +121,7 @@ if (str == "") {
                        $('#btnotp').prop('type', 'submit');
 
             $('#btnotp').val('Register');
-  $('#btnotp').attr('onclick', '');
+  $('#btnotp').attr('onclick', 'funs()');
                 
                 alert("Phone verify success");
                     document.getElementById("phone").readOnly = true;
@@ -145,18 +146,17 @@ if (str == "") {
 <section id="form" style="margin-top:20px;"><!--form-->
 	<div class="container">
 		<div class="row">
-			@if(Session::has('flash_message_success'))
-	            <div class="alert alert-success alert-block">
-	                <button type="button" class="close" data-dismiss="alert">×</button> 
-	                    <strong>{!! session('flash_message_success') !!}</strong>
-	            </div>
-	        @endif
-	        @if(Session::has('flash_message_error'))
-	            <div class="alert alert-error alert-block" style="background-color:#f4d2d2">
-	                <button type="button" class="close" data-dismiss="alert">×</button> 
-	                    <strong>{!! session('flash_message_error') !!}</strong>
-	            </div>
-    		@endif  
+            <script>
+			 @if (session('success'))
+           swal("{{ session('success') }}");
+         @endif
+     </script>
+         <script>
+	       @if (session('error'))
+           swal("{{ session('error') }}");
+         @endif
+
+     </script>
 			<div class="col-sm-4 col-sm-offset-1">
 				<div class="login-form"><!--login form-->
 					<h2>Login to your account</h2>
