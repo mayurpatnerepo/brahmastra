@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Exports\usersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
+use  App\otp_verify;
 
 class UsersController extends Controller
 {
@@ -29,7 +32,7 @@ class UsersController extends Controller
             if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
                 $userStatus = User::where('email',$data['email'])->first();
                 if($userStatus->status == 0){
-                    return redirect()->back()->with('flash_message_error','Your account is not activated! Please confirm your email to activate.');    
+                    return redirect()->back()->with('error','Your account is not activated! Please confirm your email to activate.');    
                 }
                 Session::put('frontSession',$data['email']);
 
@@ -40,10 +43,15 @@ class UsersController extends Controller
 
                 return redirect('/cart');
             }else{
-                return redirect()->back()->with('flash_message_error','Invalid Username or Password!');
+                return redirect()->back()->with('error','Invalid Username or Password!');
             }
         }
     }
+
+
+
+    
+
 
     public function register(Request $request){
 
@@ -63,7 +71,7 @@ $this->validate($request, [
 
     ]);
 
-
+   
         //print_r("here"); 
     	if($request->isMethod('post')){
     		$data = $request->all();
@@ -72,7 +80,7 @@ $this->validate($request, [
     		$usersCount = User::where('email',$data['email1'])->count();
 
     		if($usersCount>0){
-    			return redirect()->back()->with('flash_message_error','Email already exists!');
+    			return redirect()->back()->with('error','Email already exists!');
     		}else{
 
     			$user = new User;
@@ -87,12 +95,13 @@ $this->validate($request, [
                 $user->created_at = date("Y-m-d H:i:s");
                 $user->updated_at = date("Y-m-d H:i:s");
                 $user->save();
-
+   
                 //otp send to email
-
-               /*$otp= $data['otp'];
-               $messageData = ['email'=>$data['email1'],'otp'=>$data['otp']];
-                Mail::send('emails.otp',$messageData,function($message) use($otp){
+              /* $abc = otp_verify::where(['otp'=>$otp])->get();
+               //echo "<pre>"; print_r($abc); die;
+               //$otp= $data['otp'];
+               $messageData = ['otp'=>$abc];
+                Mail::send('emails.otp',$messageData,function($message) use($abc){
                     $message->to($email)->subject('is your OTP');
                 });*/
 
@@ -110,7 +119,7 @@ $this->validate($request, [
                     $message->to($email)->subject('Confirm your Brahmastra Account');
                 });
 
-                return redirect()->back()->with('flash_message_success','Please confirm your email to activate your account!');
+                return redirect()->back()->with('success','Please confirm your email to activate your account!');
                 
 
 
@@ -137,7 +146,7 @@ $this->validate($request, [
             /*echo "<pre>"; print_r($data); die;*/
             $userCount = User::where('email',$data['email'])->count();
             if($userCount == 0){
-                return redirect()->back()->with('flash_message_error','Email does not exists!');
+                return redirect()->back()->with('error','Email does not exists!');
             }
 
             //Get User Details
@@ -164,7 +173,7 @@ $this->validate($request, [
                 $message->to($email)->subject('New Password - Brahmastra Website');
             });
 
-            return redirect('login-register')->with('flash_message_success','Please check your email for new password!');
+            return redirect('login-register')->with('success','Please check your email for new password!');
 
         }
         return view('users.forgot_password');
@@ -176,7 +185,7 @@ $this->validate($request, [
         if($userCount > 0){
             $userDetails = User::where('email',$email)->first();
             if($userDetails->status == 1){
-                return redirect('login-register')->with('flash_message_success','Your Email account is already activated. You can login now.');
+                return redirect('login-register')->with('success','Your Email account is already activated. You can login now.');
             }else{
                 User::where('email',$email)->update(['status'=>1]);
 
@@ -186,7 +195,7 @@ $this->validate($request, [
                     $message->to($email)->subject('Welcome to Brahmastra');
                 });
 
-                return redirect('login-register')->with('flash_message_success','Your Email account is activated. You can login now.');
+                return redirect('login-register')->with('success','Your Email account is activated. You can login now.');
             }
         }else{
             abort(404);
@@ -203,7 +212,7 @@ $this->validate($request, [
             /*echo "<pre>"; print_r($data); die;*/
 
             if(empty($data['name'])){
-                return redirect()->back()->with('flash_message_error','Please enter your Name to update your account details!');    
+                return redirect()->back()->with('error','Please enter your Name to update your account details!');    
             }
 
             if(empty($data['address'])){
@@ -239,7 +248,7 @@ $this->validate($request, [
             $user->pincode = $data['pincode'];
             $user->mobile = $data['mobile'];
             $user->save();
-            return redirect()->back()->with('flash_message_success','Your account details has been successfully updated!');
+            return redirect()->back()->with('success','Your account details has been successfully updated!');
         }
 
         return view('users.account')->with(compact('countries','userDetails'));
@@ -268,9 +277,9 @@ $this->validate($request, [
                 // Update password
                 $new_pwd = bcrypt($data['new_pwd']);
                 User::where('id',Auth::User()->id)->update(['password'=>$new_pwd]);
-                return redirect()->back()->with('flash_message_success',' Password updated successfully!');
+                return redirect()->back()->with('success',' Password updated successfully!');
             }else{
-                return redirect()->back()->with('flash_message_error','Current Password is incorrect!');
+                return redirect()->back()->with('error','Current Password is incorrect!');
             }
         }
     }
@@ -298,7 +307,7 @@ $this->validate($request, [
     
     public function viewUsers(){
         if(Session::get('adminDetails')['users_access']==0){
-            return redirect('/admin/dashboard')->with('flash_message_error','You have no access for this module');
+            return redirect('/admin/dashboard')->with('error','You have no access for this module');
         }
         $users = User::get();
         return view('admin.users.view_users')->with(compact('users'));
