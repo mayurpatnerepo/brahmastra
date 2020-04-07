@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
 use App\CategoryController;
-$mainCategories =  Controller::mainCategories();  
+$categories =  Controller::mainCategories();  
 
 ?>
 
@@ -57,17 +57,14 @@ $mainCategories =  Controller::mainCategories();
           </div>
       </div>
 			<div class="col-sm-12">
-			 <?php $mainCategories = Category::where(['parent_id' => 0])->take(4)->get(); ?>
-			   @foreach($mainCategories as $cat)
+			 <?php $categories = Category::where(['parent_id' => 0])->take(4)->get(); ?>
+			   @foreach($categories as $cat)
 
 			       <div class="col-sm-6" ><br>
-					   <div class="product1   @if($key==0) active @endif">
-					   
-						<a href="{{ asset('pages/category/'.$cat->id)}}"><img src="{{ asset('images/backend_images/product/large/'.$cat->image) }}" alt="" /></a>
-						
-						<h4>{{$cat->name}}</h4>
-
-					</div>
+					   <div class="product1">
+					   <a href="{{ asset('pages/category/'.$cat->id)}}"><img src="{{ asset('images/backend_images/product/large/'.$cat->image) }}" alt="" /></a>
+					    <h4>{{$cat->name}}</h4>
+                        </div>
 				  </div>
 				@endforeach
 				  
