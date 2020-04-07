@@ -17,7 +17,7 @@ class productsExport implements WithHeadings,FromCollection
         $productsData = Product::select('category_id','product_name','product_code','product_color','price')->where('status',1)->orderBy('id','Desc')->get();
         foreach($productsData as $key => $product){
         	$catName = Category::select('name')->where('id',$product->category_id)->first();
-        	$productsData[$key]->category_id = $catName->name;
+        	$productsData[$key]->category_id = $catName['name'];
         }
         return $productsData;
     }
