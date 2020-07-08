@@ -250,17 +250,17 @@ a#scrollUp i{
 }
 
 .mainmenu ul li a {
-	color: #fff
+	color: #ffc107;
 	font-family: 'proxima-nova', sans-serif;
-	font-size: 20px;
-	font-weight: 550;
+	font-size: 17px;
+	font-weight: 300;
 	padding: 0;
-	padding-bottom: 10px;
+	padding-bottom: 0px;
 }
 
 .mainmenu ul li a:hover, .mainmenu ul li a.active,  .shop-menu ul li a.active{
 	background:none;
-	color:#fff;
+	color:#ffc107;
 }
 
 .search_box input {
@@ -286,7 +286,7 @@ a#scrollUp i{
 
 .navbar-header 
 .navbar-toggle .icon-bar {
-    background-color: #fff;
+    background-color: #ffc107;
 }
 
 
@@ -304,7 +304,7 @@ ul.sub-menu {
 	position: absolute;
 	top: 30px;
 	left: 0;
-	background: rgba(0, 0, 0, 0.6);
+	background: rgba(1, 0, 1, 0);
 	list-style: none;
 	padding: 0;
 	margin: 0;
@@ -335,12 +335,12 @@ ul.sub-menu {
 }
 
 .navbar-nav li ul.sub-menu li a{
-  color: #fff;
+  color: #ffc107;
 
 }
 
 .navbar-nav li ul.sub-menu li a:hover{
-    color: #1c0e5f;
+    color: #ffc107;
     text-decoration: none;
 }
 
@@ -2840,3 +2840,9 @@ transform: scale(1.5);
     -webkit-transform:rotate(180deg);
     transform:rotate(180deg);
 }
+
+
+
+
+
+  
