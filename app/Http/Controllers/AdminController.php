@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Auth;
 use Session;
@@ -7,23 +8,38 @@ use App\User;
 use App\Admin;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+use Validator;
+
 
 class AdminController extends Controller
+
 {
+
+
+
+    
     public function login(Request $request){
     	if($request->isMethod('post')){
     		$data = $request->input();
+
+          // echo "<pre>"; print_r($data); die;
             $adminCount = Admin::where(['username' => $data['username'],'password'=>md5($data['password']),'status'=>1])->count(); 
             if($adminCount > 0){
                 //echo "Success"; die;
                 Session::put('adminSession', $data['username']);
-                return redirect('/admin/dashboard');
+               // $success['token'] =  $data->createToken('MyApp')-> accessToken; 
+                // return response()->json(['success' => $success], $this-> successStatus);
+        return redirect('/admin/dashboard');
+
         	}else{
                 //echo "failed"; die;
                 //alert()->error('Title','Lorem Lorem Lorem');
-                return redirect('/admin')->with('error', '    ');
+               // return response()->json(['error'=>'Unauthorised'], 401); 
+    return redirect('/admin');
         	}
     	}
+
+
     	return view('admin.admin_login');
     }
 
@@ -88,7 +104,7 @@ class AdminController extends Controller
 
     public function viewAdmins(){
         $admins = Admin::get();
-        /*$admins = json_decode(json_encode($admins));
+       /* $admins = json_decode(json_encode($admins));
         echo "<pre>"; print_r($admins); die;*/
         return view('admin.admins.view_admins')->with(compact('admins'));
     }
