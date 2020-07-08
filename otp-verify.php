@@ -17,16 +17,16 @@ $sql = "INSERT INTO otp_verify (mobile, otp, status)VALUES ('".$_GET['phone']."'
 if ($conn->query($sql) === TRUE) {
     
     // Authorisation details.
-	$username = "TXTLCL";
-	$hash = "SrbV3i6XlcU-R273rShr6QteUFP8xIl00KBotpVxF1";
+	$username = "agapeworld1996@gmail.com";
+	$hash = "951c8baf6dd5468ef013a9b72e0f4fd00c86c831";
 
 	// Config variables. Consult http://api.textlocal.in/docs for more info.
 	$test = "0";
 
 	// Data for text message. This is the text message data.
-	$sender = urldecode('TXTLCL'); // This is who the message appears to be from.
+	$sender = "SLBABA"; // This is who the message appears to be from.
 	$numbers = "91".$_GET['phone']; // A single number or a comma-seperated list of numbers
-	$message = $rand." is the One Time Password (OTP) for your Brahmastra.com account.";
+	$message = $rand." is the One Time Password (OTP) for your Sealantbaba.com account.";
 	// 612 chars or less
 	// A single number or a comma-seperated list of numbers
 	$message = urlencode($message);
@@ -44,5 +44,5 @@ if ($conn->query($sql) === TRUE) {
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
-	//commit
+	
 ?>
