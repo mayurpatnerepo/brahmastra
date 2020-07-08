@@ -111,70 +111,7 @@ $subCategories1 =  Controller::subCategories1();
                                    </ul>
                                 </li> 
                                 @endforeach
-                               <!-- <li class="dropdown"><a href="#">Fitness Band<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                    	@foreach($mainCategories as $cat)
-                                        	<li><a href="{{ asset('products/'.$cat->url) }}">{{ $cat->name }}</a></li>
-										@endforeach
-                                    </ul>
-                                </li> 
-
-                                <li class="dropdown"><a href="#">OFFERS<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                    	@foreach($mainCategories as $cat)
-                                        	<li><a href="{{ asset('products/'.$cat->url) }}">{{ $cat->name }}</a></li>
-										@endforeach
-                                    </ul>
-                                </li> -->
-                               <!-- <li class="dropdown"><a href="#">Pendrive<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">USB</a></li>
-										<li><a href="blog-single.html">USB</a></li>
-                                    </ul>
-                                </li> 
-                                <li class="dropdown"><a href="#">Hdd<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">HDD1</a></li>
-										<li><a href="blog-single.html">HDD2</a></li>
-                                    </ul>
-                                </li> 
-                                <li class="dropdown"><a href="#">Camera<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Camera1</a></li>
-										<li><a href="blog-single.html">Camera2</a></li>
-                                    </ul>
-                                </li> 
-                                <li class="dropdown"><a href="#">Watch<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Watch1</a></li>
-										<li><a href="blog-single.html">Watch2</a></li>
-                                    </ul>
-                                </li> 
-                                <li class="dropdown"><a href="#">Offer<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Offer1</a></li>
-										<li><a href="blog-single.html">Offer2</a></li>
-                                    </ul>
-                                </li> 
-								<li class="dropdown"><a href="#">BestSeller<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">BestSeller</a></li>
-										<li><a href="blog-single.html">BestSeller</a></li>
-                                    </ul>
-                                </li> 
-
-                                <li class="dropdown"><a href="#">Limited offer<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Limited offer</a></li>
-										<li><a href="blog-single.html">Limited offer</a></li>
-                                    </ul>
-                                </li> 
-
-
-
-
-
-								<li><a href="{{ url('page/post') }}">Contact</a></li>-->
+                            
 							</ul>
 						</div>
 					</div>
