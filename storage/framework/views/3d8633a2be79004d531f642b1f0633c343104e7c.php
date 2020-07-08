@@ -7,6 +7,8 @@ use App\Order;
 use App\User;
 use App\Product;
 use App\Enquiry;
+use Carbon\Carbon;
+
 
  ?>
 <!--main-container-part-->
@@ -45,9 +47,6 @@ $Product = Product::where(['status'=>1])->get();
 
  $enquiries = Enquiry::orderBy('id','Desc')->get();
  $enq = count($enquiries);
-
-
-
 
 ?>
   <div class="container-fluid">
@@ -89,27 +88,97 @@ $Product = Product::where(['status'=>1])->get();
         <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
           <h5>Site Analytics</h5>
         </div>
-        <div class="widget-content" >
+       <div class="widget-content" >
           <div class="row-fluid">
-            <div class="span9">
-              <div class="chart"></div>
-            </div>
-            <div class="span3">
-              <ul class="site-stats">
-                <li class="bg_lh"><i class="icon-user"></i> <strong>2540</strong> <small>Total Users</small></li>
-                <li class="bg_lh"><i class="icon-plus"></i> <strong>120</strong> <small>New Users </small></li>
-                <li class="bg_lh"><i class="icon-shopping-cart"></i> <strong>656</strong> <small>Total Shop</small></li>
-                <li class="bg_lh"><i class="icon-tag"></i> <strong>9540</strong> <small>Total Orders</small></li>
-                <li class="bg_lh"><i class="icon-repeat"></i> <strong>10</strong> <small>Pending Orders</small></li>
-                <li class="bg_lh"><i class="icon-globe"></i> <strong>8540</strong> <small>Online Orders</small></li>
-              </ul>
+            <div class="span12">
+              <div class="chart">
+                
+            <?php
+             //$dueToday = Carbon::today();
+
+              
+           //  echo "<pre>"; print_r($dueToday);
+             $days_current_month_orders = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->whereDate('created_at',Carbon::today())->orderBy('id', 'DESC')->count();
+             //echo "<pre>"; print_r($days_current_month_orders);
+
+            $current_month_orders = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->count();
+
+            //echo "<pre>"; print_r($current_month_orders);
+
+        $last_month_orders = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->subMonth(1))->count();
+
+        $last_to_last_month_orders = Order::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->subMonth(2))->count();
+
+
+$days=date('D');
+//$day1=date('D',strtotime("1 day"));
+
+$current_month = date('M');
+$last_month = date('M',strtotime("-1 month"));
+$last_to_last_month = date('M',strtotime("-2 month"));
+ 
+?>
+
+
+
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+  animationEnabled: true,
+  theme: "light2", // "light1", "light2", "dark1", "dark2"
+  title:{
+    text: "Orders Reporting"
+  },
+  axisY: {
+    title: "Number of Orders"
+  },
+  data: [{        
+    type: "column",  
+    showInLegend: true, 
+    legendMarkerColor: "grey",
+    legendText: "Last 3 Months",
+    dataPoints: [
+     { y: <?php echo $days_current_month_orders; ?>, label: "<?php echo $days; ?>" },  
+      
+      { y: <?php echo $current_month_orders; ?>, label: "<?php echo $current_month; ?>" },
+      { y: <?php echo $last_month_orders; ?>,  label: "<?php echo $last_month; ?>" },
+      { y: <?php echo $last_to_last_month_orders; ?>,  label: "<?php echo $last_to_last_month; ?>" }
+    ]
+  }]
+});
+chart.render();
+
+}
+</script>
+
+    
+        <div class="widget-box">
+          <div class="widget-content nopadding">
+            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+          </div>
+        </div>
+      
+    
+  
+
+
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    
             </div>
           </div>
         </div>
       </div>
-    </div>
+ </div>
+
+</hr>
+
+
+
+    
 <!--End-Chart-box--> 
-    <hr/>
+    
     <div class="row-fluid">
       <div class="span6">
         <div class="widget-box">
@@ -144,7 +213,12 @@ $Product = Product::where(['status'=>1])->get();
         
       </div>
 
+
+
     </div>
+
+
+
   </div>
 </div>
 

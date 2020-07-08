@@ -1,21 +1,23 @@
 <?php $__env->startSection('content'); ?>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
 <?php use App\Product; ?>
 <section>
 		<div class="container">
 			<div class="row">
 
-				<?php if(Session::has('flash_message_success')): ?>
-	            <div class="alert alert-success alert-block">
-	                <button type="button" class="close" data-dismiss="alert">×</button> 
-	                    <strong><?php echo session('flash_message_success'); ?></strong>
-	            </div>
-	        <?php endif; ?>
-			<?php if(Session::has('flash_message_error')): ?>
-	            <div class="alert alert-error alert-block" style="background-color:#d7efe5">
-	                <button type="button" class="close" data-dismiss="alert">×</button> 
-	                    <strong><?php echo session('flash_message_error'); ?></strong>
-	            </div>
-	        <?php endif; ?>   
+				 <script>
+             <?php if(session('success')): ?>
+           swal("<?php echo e(session('success')); ?>");
+         <?php endif; ?>
+     </script>
+         <script>
+           <?php if(session('error')): ?>
+           swal("<?php echo e(session('error')); ?>");
+         <?php endif; ?>
+
+     </script>  
 				<div class="col-sm-3">
 					<?php echo $__env->make('layouts.frontLayout.front_sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>	
 				</div>

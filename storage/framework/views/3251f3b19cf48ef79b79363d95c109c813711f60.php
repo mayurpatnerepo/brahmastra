@@ -27,8 +27,6 @@ $subCategories1 =  Controller::subCategories1();
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 								<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-								<!--<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>-->
 								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
 							</ul>
 						</div>  
@@ -40,36 +38,25 @@ $subCategories1 =  Controller::subCategories1();
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="logo pull-left">
-							<a href="<?php echo e(url('./')); ?>"><img src="<?php echo e(asset('images/frontend_images/home/logo.png')); ?>" alt="" /></a>
+							<a href="<?php echo e(url('./')); ?>"><img src="<?php echo e(asset('images/backend_images/image/logo.png')); ?>" alt="" /></a>
 						</div>
-                        <!-- comment country and doller -->
-						<!--<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									USA
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Canada</a></li>
-									<li><a href="#">UK</a></li>
-								</ul>
-							</div>
-							
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									DOLLAR
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Canadian Dollar</a></li>
-									<li><a href="#">Pound</a></li>
-								</ul>
-							</div>
-						</div>-->
+                     </div>
+
+
+
+					<div class="col-sm-5">
+						<div class="search_box pull-right" style="margin:auto; width: 100%;">
+							<form action="<?php echo e(url('/search-products')); ?>" method="post"><?php echo e(csrf_field()); ?> 
+								<input type="text" placeholder="Search Product" name="product" style="width: 80%; background-color: white;" required />
+								<button type="submit" style="border:0px; height:33px; width: 10%; color: white ; background-color:#172337 "><i class="fa fa-search"></i></button>
+							</form>
+						</div>
 					</div>
-					<div class="col-sm-8">
+
+
+					<div class="col-sm-4">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								
@@ -93,14 +80,14 @@ $subCategories1 =  Controller::subCategories1();
 			<div class="container">
 				<div class="row">
 
-					<div class="col-sm-12">
+					<!--<div class="col-sm-12">
 						<div class="search_box pull-right" style="margin:auto; width: 100%;">
 							<form action="<?php echo e(url('/search-products')); ?>" method="post"><?php echo e(csrf_field()); ?> 
 								<input type="text" placeholder="Search Product" name="product" style=" border-radius: 25px; width: 80%; background-color: white;" required />
 								<button type="submit" style="border:0px; height:33px; margin-left:3px;  border-radius: 15px; width: 15%; color: white ; background-color:#172337 ">Search</button>
 							</form>
 						</div>
-					</div><br><br><br>
+					</div>-->
 
 					<div class="col-sm-12">
 						<div class="navbar-header">
@@ -195,4 +182,4 @@ $subCategories1 =  Controller::subCategories1();
 				</div>
 			</div>
 		</div>
-	</header><?php /**PATH C:\wamp\www\Brahmastra\trunk\resources\views/layouts/frontLayout/front_header.blade.php ENDPATH**/ ?>
+	</header><br><br><?php /**PATH C:\wamp\www\Brahmastra\trunk\resources\views/layouts/frontLayout/front_header.blade.php ENDPATH**/ ?>

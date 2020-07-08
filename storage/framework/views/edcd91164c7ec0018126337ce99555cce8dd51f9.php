@@ -1,4 +1,7 @@
 <?php $__env->startSection('content'); ?>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
 	
 <section>
 	<div class="container">
@@ -10,12 +13,11 @@
 			<div class="col-sm-9 padding-right">
 				<div class="features_items"><!--features_items-->
 					<h2 class="title text-center">Contact Us</h2>
-					<?php if(Session::has('flash_message_success')): ?>
-			            <div class="alert alert-success alert-block">
-			                <button type="button" class="close" data-dismiss="alert">×</button> 
-			                    <strong><?php echo session('flash_message_success'); ?></strong>
-			            </div>
-			        <?php endif; ?>
+						 <script>
+                            <?php if(session('success')): ?>
+                            swal("<?php echo e(session('success')); ?>");
+                            <?php endif; ?>
+                          </script>
 			        <?php if($errors->any()): ?>
 					    <div class="alert alert-danger">
 					        <ul>

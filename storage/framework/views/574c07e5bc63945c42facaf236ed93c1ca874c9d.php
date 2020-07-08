@@ -18,6 +18,7 @@
 	<link href="<?php echo e(asset('css/frontend_css/responsive.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/frontend_css/easyzoom.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/frontend_css/passtrength.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/frontend_css/Rated.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     
     <!--[if lt IE 9]>
@@ -50,6 +51,7 @@
     <script src="<?php echo e(asset('js/frontend_js/passtrength.js')); ?>"></script>
      <script src="<?php echo e(asset('js/frontend_js/slider.js')); ?>"></script>
       <script src="<?php echo e(asset('js/frontend_js/slider1.js')); ?>"></script>
+       <script src="<?php echo e(asset('js/frontend_js/Rated.js')); ?>"></script>
      
     <!-- <script src="<?php echo e(asset('js/app.js')); ?>"></script> -->
     <scipt src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></scipt>
