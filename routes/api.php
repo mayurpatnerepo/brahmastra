@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::match(['get', 'post'], '/admin','api\AdminController@login');
+
+
+Route::get('/admin/view-products','api\ProductsController@viewProducts');
+
+Route::get('/admin/view-admins','api\AdminController@viewAdmins');
