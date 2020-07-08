@@ -123,7 +123,8 @@ $().ready(function(){
 			},
 			confirmPassword:{
                 required:true,
-				minlength:6
+				minlength:6,
+				//equalTo:"#password"
 			},
 			phone:{
 				required:true,
@@ -165,6 +166,9 @@ $().ready(function(){
 			
 		}
 	});
+
+	var validator = $( "#registerForm" ).validate();
+	validator.destroy();
 
 	// Validate Register form on keyup and submit
 	$("#accountForm").validate({

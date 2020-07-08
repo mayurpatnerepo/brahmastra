@@ -18,3 +18,11 @@ itemToClone.children(':first-child').clone()
 }
 });
 });
+
+
+
+$(document).ready(function() {
+    $('#Carousel').carousel({
+        interval: 1000
+    })
+});
